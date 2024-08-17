@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:flutter_application_1/domain/entities/movie.dart';
+
 class MovieModel {
   int id;
   String title;
@@ -33,5 +35,17 @@ class MovieModel {
     );
   }
 
-  factory MovieModel.fromJson(String source) => MovieModel.fromJsonMap(json.decode(source));
+  factory MovieModel.fromJson(String source) =>
+      MovieModel.fromJsonMap(json.decode(source));
+
+  Movie toEntity() => Movie(
+        backdropPath: backdropPath,
+        genreIds: genreIds,
+        id: id,
+        overview: overview,
+        posterPath: posterPath,
+        releaseDate: releaseDate,
+        title: title,
+        voteAverage: voteAverage,
+      );
 }

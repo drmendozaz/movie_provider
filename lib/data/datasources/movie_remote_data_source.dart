@@ -7,7 +7,6 @@ import 'package:flutter_application_1/data/models/movie_list_response.dart';
 abstract class MovieRemoteDataSource {
   Future<MovieListResponse> getPopularMovies({required int page});
   Future<MovieListResponse> getNowPlayingMovies({required int page});
-  
 }
 
 class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
@@ -36,5 +35,4 @@ class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
       throw Exception('Failed to fetch movies');
     }
   }
-  
 }
