@@ -35,7 +35,7 @@ class PopularMoviesViewModel extends ViewModel<PopularMoviesState> {
             hasReachedMax = true;
           }
 
-          setState(PopularMoviesState.success(movies: _movieList));
+          setState(PopularMoviesState.success(movies: List.of(_movieList)));
         },
       );
     } catch (_) {

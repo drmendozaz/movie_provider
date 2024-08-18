@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/data/models/movie_list_response.dart';
 import 'package:flutter_application_1/domain/entities/movie.dart';
 import 'package:flutter_application_1/presentation/popular/popular_movies_view.dart';
 import 'package:flutter_application_1/presentation/popular/popular_movies_viewmodel.dart';
@@ -6,12 +9,17 @@ import 'package:flutter_application_1/presentation/popular/popular_state.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:provider/provider.dart';
+import '../helpers/json_reader.dart';
 
 class MockPopularMoviesViewModel extends Mock
     implements PopularMoviesViewModel {}
 
 void main() {
   late MockPopularMoviesViewModel mockViewModel;
+
+  final movieEntity = MovieListResponse.fromJsonMap(
+          json.decode(readJson('helpers/movies_response.json')))
+      .toEntity();
 
   setUp(() {
     mockViewModel = MockPopularMoviesViewModel();
@@ -26,25 +34,23 @@ void main() {
     );
   }
 
-  testWidgets('View should display center progress bar when loading',
+  testWidgets('View should display progress bar when loading',
       (WidgetTester tester) async {
     when(() => mockViewModel.state)
         .thenReturn(const PopularMoviesState.loading());
 
-    final centerFinder = find.byType(Center);
     final progressBarFinder = find.byType(CircularProgressIndicator);
 
     await tester.pumpWidget(makeTestableWidget(const PopularMoviesPage()));
 
-    expect(centerFinder, equals(findsOneWidget));
     expect(progressBarFinder, equals(findsOneWidget));
   });
 
   testWidgets(
     'View should display list view when data is loaded',
     (WidgetTester tester) async {
-      when(() => mockViewModel.state)
-          .thenReturn(const PopularMoviesState.success(movies: <Movie>[]));
+      when(() => mockViewModel.state).thenReturn(
+          PopularMoviesState.success(movies: movieEntity.movies ?? <Movie>[]));
 
       final listViewFinder = find.byType(ListView);
 

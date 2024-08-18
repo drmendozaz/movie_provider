@@ -17,7 +17,7 @@ void main() {
   late final MovieRemoteDataSource remoteDataSource =
       MovieRemoteDataSourceImpl(client: mockHttpClient);
 
-  setUp(() async {
+  setUp(() {
     when(() => mockResponse.statusCode).thenReturn(200);
     when(() => mockResponse.body).thenReturn(
       readJson('helpers/movies_response.json'),
