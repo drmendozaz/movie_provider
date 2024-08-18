@@ -4,6 +4,11 @@ class ApiConfig {
   static const String imageBaseUrl = 'https://image.tmdb.org/t/p/w500';
 
   /// Movies
-  static const String nowPlayingMovies = '$baseUrl/movie/now_playing?api_key=$apiKey';
-  static const String popularMovies = '$baseUrl/movie/popular?api_key=$apiKey';
+  static String nowPlayingMovies(int page) =>
+      '$baseUrl/movie/now_playing?api_key=$apiKey&page=$page';
+  static String popularMovies(int page) =>
+      '$baseUrl/movie/popular?api_key=$apiKey&page=$page';
+
+  /// Image
+  static String imageUrl(String path) => '$imageBaseUrl$path';
 }

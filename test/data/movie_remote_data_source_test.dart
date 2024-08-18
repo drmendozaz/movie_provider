@@ -23,11 +23,11 @@ void main() {
       readJson('helpers/movies_response.json'),
     );
 
-    when(() => mockHttpClient.get(Uri.parse(ApiConfig.nowPlayingMovies)))
+    when(() => mockHttpClient.get(Uri.parse(ApiConfig.nowPlayingMovies(1))))
         .thenAnswer(
       (_) async => mockResponse,
     );
-    when(() => mockHttpClient.get(Uri.parse(ApiConfig.popularMovies)))
+    when(() => mockHttpClient.get(Uri.parse(ApiConfig.popularMovies(1))))
         .thenAnswer(
       (_) async => mockResponse,
     );
@@ -46,7 +46,7 @@ void main() {
   });
 
   test('Throws exeption with incorrect response', () async {
-    when(() => mockHttpClient.get(Uri.parse(ApiConfig.popularMovies)))
+    when(() => mockHttpClient.get(Uri.parse(ApiConfig.popularMovies(1))))
         .thenAnswer((_) async => Response('Not found', 404));
 
     final response = remoteDataSource.getPopularMovies;

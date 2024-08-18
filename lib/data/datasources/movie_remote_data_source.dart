@@ -16,7 +16,7 @@ class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
 
   @override
   Future<MovieListResponse> getPopularMovies({required int page}) async {
-    final response = await client.get(Uri.parse(ApiConfig.popularMovies));
+    final response = await client.get(Uri.parse(ApiConfig.popularMovies(page)));
 
     if (response.statusCode == 200) {
       return MovieListResponse.fromJsonMap(json.decode(response.body));
@@ -27,7 +27,8 @@ class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
 
   @override
   Future<MovieListResponse> getNowPlayingMovies({required int page}) async {
-    final response = await client.get(Uri.parse(ApiConfig.nowPlayingMovies));
+    final response =
+        await client.get(Uri.parse(ApiConfig.nowPlayingMovies(page)));
 
     if (response.statusCode == 200) {
       return MovieListResponse.fromJsonMap(json.decode(response.body));
