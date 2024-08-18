@@ -1,8 +1,8 @@
-import 'package:flutter_application_1/data/api_config.dart';
+import 'package:movie_provider/data/api_config.dart';
 import 'package:http/http.dart';
 import 'dart:convert';
 
-import 'package:flutter_application_1/data/models/movie_list_response.dart';
+import 'package:movie_provider/data/models/movie_list_response.dart';
 
 abstract class MovieRemoteDataSource {
   Future<MovieListResponse> getPopularMovies({required int page});

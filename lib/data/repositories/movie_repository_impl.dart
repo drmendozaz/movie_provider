@@ -1,9 +1,9 @@
 import 'package:fpdart/fpdart.dart';
 
-import 'package:flutter_application_1/core/failure.dart';
-import 'package:flutter_application_1/data/datasources/movie_remote_data_source.dart';
-import 'package:flutter_application_1/domain/entities/movie_list.dart';
-import 'package:flutter_application_1/domain/repositories/movie_repository.dart';
+import 'package:movie_provider/core/failure.dart';
+import 'package:movie_provider/data/datasources/movie_remote_data_source.dart';
+import 'package:movie_provider/domain/entities/movie_list.dart';
+import 'package:movie_provider/domain/repositories/movie_repository.dart';
 
 class MovieRepositoryImpl implements MovieRepository {
   final MovieRemoteDataSource _movieRemoteDataSource;

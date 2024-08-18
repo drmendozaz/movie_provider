@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:flutter_application_1/domain/entities/movie.dart';
+import 'package:movie_provider/domain/entities/movie.dart';
 
 class MovieModel {
   int id;

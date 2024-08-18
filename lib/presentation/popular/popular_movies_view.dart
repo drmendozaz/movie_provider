@@ -1,9 +1,9 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/presentation/common/grid_movie_card.dart';
-import 'package:flutter_application_1/presentation/common/movie_card.dart';
-import 'package:flutter_application_1/presentation/popular/popular_movies_viewmodel.dart';
-import 'package:flutter_application_1/presentation/popular/popular_state.dart';
+import 'package:movie_provider/presentation/common/grid_movie_card.dart';
+import 'package:movie_provider/presentation/common/movie_card.dart';
+import 'package:movie_provider/presentation/popular/popular_movies_viewmodel.dart';
+import 'package:movie_provider/presentation/popular/popular_state.dart';
 import 'package:provider/provider.dart';
 
 class PopularMoviesPage extends StatefulWidget {

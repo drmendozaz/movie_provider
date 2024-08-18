@@ -1,5 +1,5 @@
-import 'package:flutter_application_1/data/models/movie_model.dart';
-import 'package:flutter_application_1/domain/entities/movie_list.dart';
+import 'package:movie_provider/data/models/movie_model.dart';
+import 'package:movie_provider/domain/entities/movie_list.dart';
 
 class MovieListResponse {
   int page;

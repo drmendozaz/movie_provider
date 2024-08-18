@@ -1,6 +1,6 @@
-# flutter_application_1
+# movie_provider
 
-A new Flutter project.
+A flutter app for browsing popular movies using with Clean Architecture.
 
 ## Getting Started
 

@@ -1,11 +1,11 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/data/models/movie_list_response.dart';
-import 'package:flutter_application_1/domain/entities/movie.dart';
-import 'package:flutter_application_1/presentation/popular/popular_movies_view.dart';
-import 'package:flutter_application_1/presentation/popular/popular_movies_viewmodel.dart';
-import 'package:flutter_application_1/presentation/popular/popular_state.dart';
+import 'package:movie_provider/data/models/movie_list_response.dart';
+import 'package:movie_provider/domain/entities/movie.dart';
+import 'package:movie_provider/presentation/popular/popular_movies_view.dart';
+import 'package:movie_provider/presentation/popular/popular_movies_viewmodel.dart';
+import 'package:movie_provider/presentation/popular/popular_state.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:provider/provider.dart';

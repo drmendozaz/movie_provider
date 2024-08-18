@@ -1,8 +1,8 @@
-import 'package:flutter_application_1/core/failure.dart';
-import 'package:flutter_application_1/data/datasources/movie_remote_data_source.dart';
-import 'package:flutter_application_1/data/models/movie_list_response.dart';
-import 'package:flutter_application_1/data/repositories/movie_repository_impl.dart';
-import 'package:flutter_application_1/domain/entities/movie_list.dart';
+import 'package:movie_provider/core/failure.dart';
+import 'package:movie_provider/data/datasources/movie_remote_data_source.dart';
+import 'package:movie_provider/data/models/movie_list_response.dart';
+import 'package:movie_provider/data/repositories/movie_repository_impl.dart';
+import 'package:movie_provider/domain/entities/movie_list.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:mocktail/mocktail.dart';
@@ -27,7 +27,7 @@ void main() {
         .thenAnswer((_) async => movieListResponse);
   });
 
-  group('get popular movies', () {
+  group('Get popular movies', () {
     test(
       'should return movie list when a call to data source is successful',
       () async {
@@ -41,7 +41,7 @@ void main() {
     );
   });
 
-  group('get now playing movies', () {
+  group('Get now playing movies', () {
     test(
       'should return movie list when a call to data source is successful',
       () async {

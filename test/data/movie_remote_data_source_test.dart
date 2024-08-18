@@ -1,6 +1,6 @@
-import 'package:flutter_application_1/data/api_config.dart';
-import 'package:flutter_application_1/data/datasources/movie_remote_data_source.dart';
-import 'package:flutter_application_1/data/models/movie_list_response.dart';
+import 'package:movie_provider/data/api_config.dart';
+import 'package:movie_provider/data/datasources/movie_remote_data_source.dart';
+import 'package:movie_provider/data/models/movie_list_response.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart';
 import 'package:mocktail/mocktail.dart';

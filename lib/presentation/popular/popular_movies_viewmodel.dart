@@ -1,7 +1,7 @@
-import 'package:flutter_application_1/core/viewmodel.dart';
-import 'package:flutter_application_1/domain/entities/movie.dart';
-import 'package:flutter_application_1/domain/usecases/movie_usecases.dart';
-import 'package:flutter_application_1/presentation/popular/popular_state.dart';
+import 'package:movie_provider/core/viewmodel.dart';
+import 'package:movie_provider/domain/entities/movie.dart';
+import 'package:movie_provider/domain/usecases/movie_usecases.dart';
+import 'package:movie_provider/presentation/popular/popular_state.dart';
 
 class PopularMoviesViewModel extends ViewModel<PopularMoviesState> {
   PopularMoviesViewModel(this._movieUsecases)

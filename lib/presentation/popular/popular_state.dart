@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter_application_1/domain/entities/movie.dart';
+import 'package:movie_provider/domain/entities/movie.dart';
 
 sealed class PopularMoviesState extends Equatable {
   const PopularMoviesState();

@@ -1,6 +1,6 @@
-import 'package:flutter_application_1/domain/entities/movie_list.dart';
-import 'package:flutter_application_1/domain/repositories/movie_repository.dart';
-import 'package:flutter_application_1/domain/usecases/movie_usecases.dart';
+import 'package:movie_provider/domain/entities/movie_list.dart';
+import 'package:movie_provider/domain/repositories/movie_repository.dart';
+import 'package:movie_provider/domain/usecases/movie_usecases.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:mocktail/mocktail.dart';

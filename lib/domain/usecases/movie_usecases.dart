@@ -1,6 +1,6 @@
-import 'package:flutter_application_1/core/failure.dart';
-import 'package:flutter_application_1/domain/entities/movie_list.dart';
-import 'package:flutter_application_1/domain/repositories/movie_repository.dart';
+import 'package:movie_provider/core/failure.dart';
+import 'package:movie_provider/domain/entities/movie_list.dart';
+import 'package:movie_provider/domain/repositories/movie_repository.dart';
 import 'package:fpdart/fpdart.dart';
 
 class MovieUsecases {

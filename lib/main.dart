@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/presentation/popular/popular_movies_view.dart';
-import 'package:flutter_application_1/presentation/popular/popular_movies_viewmodel.dart';
+import 'package:movie_provider/presentation/popular/popular_movies_view.dart';
+import 'package:movie_provider/presentation/popular/popular_movies_viewmodel.dart';
 import 'package:provider/provider.dart';
 
 import 'injector.dart' as di;
