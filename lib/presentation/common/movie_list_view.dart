@@ -6,17 +6,17 @@ import 'package:movie_provider/presentation/popular/popular_movies_viewmodel.dar
 import 'package:movie_provider/presentation/popular/popular_state.dart';
 import 'package:provider/provider.dart';
 
-class PopularMoviesPage extends StatefulWidget {
+class MovieListView extends StatefulWidget {
   static const routeName = '/popular-movies';
 
-  const PopularMoviesPage({super.key});
+  const MovieListView({super.key});
 
   @override
-  State<PopularMoviesPage> createState() => _PopularMoviesPageState();
+  State<MovieListView> createState() => _MovieListViewState();
 }
 
-class _PopularMoviesPageState extends State<PopularMoviesPage>
-    with AutomaticKeepAliveClientMixin<PopularMoviesPage> {
+class _MovieListViewState extends State<MovieListView>
+    with AutomaticKeepAliveClientMixin<MovieListView> {
   @override
   void initState() {
     super.initState();

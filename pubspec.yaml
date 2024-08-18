@@ -21,6 +21,7 @@ dependencies:
   google_fonts: ^6.2.1
   animate_do: ^3.3.4
   get_it: ^7.7.0
+  persistent_bottom_nav_bar: ^6.2.1
 
 dev_dependencies:
   flutter_test:

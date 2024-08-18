@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:movie_provider/data/models/movie_list_response.dart';
 import 'package:movie_provider/domain/entities/movie.dart';
-import 'package:movie_provider/presentation/popular/popular_movies_view.dart';
+import 'package:movie_provider/presentation/common/movie_list_view.dart';
 import 'package:movie_provider/presentation/popular/popular_movies_viewmodel.dart';
 import 'package:movie_provider/presentation/popular/popular_state.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -41,7 +41,7 @@ void main() {
 
     final progressBarFinder = find.byType(CircularProgressIndicator);
 
-    await tester.pumpWidget(makeTestableWidget(const PopularMoviesPage()));
+    await tester.pumpWidget(makeTestableWidget(const MovieListView()));
 
     expect(progressBarFinder, equals(findsOneWidget));
   });
@@ -55,7 +55,7 @@ void main() {
       final listViewFinder = find.byType(ListView);
 
       await tester.pumpWidget(
-        makeTestableWidget(const PopularMoviesPage()),
+        makeTestableWidget(const MovieListView()),
         duration: const Duration(milliseconds: 500),
       );
       await tester.pumpAndSettle(const Duration(milliseconds: 500));
@@ -73,7 +73,7 @@ void main() {
       final textFinder = find.byKey(const Key('error_message'));
 
       await tester.pumpWidget(
-        makeTestableWidget(const PopularMoviesPage()),
+        makeTestableWidget(const MovieListView()),
         duration: const Duration(milliseconds: 500),
       );
       await tester.pumpAndSettle(const Duration(milliseconds: 500));
