@@ -1,4 +1,3 @@
-import 'package:isar/isar.dart';
 import 'package:movie_provider/core/failure.dart';
 import 'package:movie_provider/domain/entities/movie.dart';
 import 'package:movie_provider/domain/entities/movie_list.dart';
