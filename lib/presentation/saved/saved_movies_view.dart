@@ -2,8 +2,6 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_provider/presentation/common/movie_list_view.dart';
-import 'package:movie_provider/presentation/popular/popular_movies_viewmodel.dart';
-import 'package:movie_provider/presentation/popular/popular_movies_state.dart';
 import 'package:movie_provider/presentation/saved/saved_movies_state.dart';
 import 'package:movie_provider/presentation/saved/saved_movies_viewmodel.dart';
 import 'package:provider/provider.dart';
