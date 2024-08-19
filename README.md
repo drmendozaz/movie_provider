@@ -1,16 +1,19 @@
-# movie_provider
+# Movie Provider
+
+![Flutter workflow](https://github.com/drmendozaz/movie_provider/actions/workflows/flutter.yml/badge.svg)
 
 A flutter app for browsing popular movies using with Clean Architecture.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+After cloning the project, follow these steps:
 
-A few resources to get you started if this is your first Flutter project:
+Restore the package
+```
+flutter pub get
+```
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Run
+```
+flutter run
+```
