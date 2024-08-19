@@ -1,20 +1,24 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:movie_provider/presentation/common/movie_list_view.dart';
+import 'package:movie_provider/presentation/now_playing/now_playing_movies_view.dart';
+import 'package:movie_provider/presentation/popular/popular_movies_view.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
 class HomeView extends StatelessWidget {
-  HomeView({super.key});
-  PersistentTabController? _controller;
+  HomeView({super.key}) {
+    _controller = PersistentTabController();
+  }
+
+  late final PersistentTabController? _controller;
   final List<Widget> _buildScreens = [
-    const MovieListView(),
-    const MovieListView()
+    const NowPlayingMoviesView(),
+    const PopularMoviesView(),
   ];
   final List<PersistentBottomNavBarItem> _navBarsItems = [
     PersistentBottomNavBarItem(
-      icon: const Icon(CupertinoIcons.home),
+      icon: const Icon(CupertinoIcons.star_circle),
       title: ('Now Playing'),
-      activeColorPrimary: CupertinoColors.activeGreen,
+      activeColorPrimary: CupertinoColors.activeBlue,
       inactiveColorPrimary: CupertinoColors.systemGrey,
     ),
     PersistentBottomNavBarItem(

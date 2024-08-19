@@ -5,7 +5,7 @@ import 'package:movie_provider/domain/entities/movie.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class MovieCard extends StatelessWidget {
-  final Movie movie;
+  final Movie? movie;
 
   const MovieCard({
     super.key,
@@ -19,7 +19,7 @@ class MovieCard extends StatelessWidget {
         Navigator.pushNamed(
           context,
           "TODO: Detail page",
-          arguments: movie.id,
+          arguments: movie?.id,
         );
       },
       child: Container(
@@ -34,10 +34,10 @@ class MovieCard extends StatelessWidget {
             Expanded(
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8.0),
-                child: movie.posterPath?.isNotEmpty ?? false
+                child: movie?.posterPath?.isNotEmpty ?? false
                     ? CachedNetworkImage(
                         imageUrl: ApiConfig.imageUrl(
-                          movie.posterPath ?? '',
+                          movie?.posterPath ?? '',
                         ),
                         placeholder: (context, url) => const Center(
                           child: CircularProgressIndicator(),
@@ -55,7 +55,7 @@ class MovieCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    movie.title ?? '-',
+                    movie?.title ?? '-',
                     overflow: TextOverflow.ellipsis,
                     style: GoogleFonts.poppins(
                         fontSize: 19,
@@ -75,7 +75,7 @@ class MovieCard extends StatelessWidget {
                           color: Colors.redAccent,
                           borderRadius: BorderRadius.circular(4.0),
                         ),
-                        child: Text(movie.releaseDate!.split('-')[0]),
+                        child: Text((movie?.releaseDate ?? '').split('-')[0]),
                       ),
                       const SizedBox(width: 16.0),
                       const Icon(
@@ -85,13 +85,13 @@ class MovieCard extends StatelessWidget {
                       ),
                       const SizedBox(width: 4.0),
                       Text(
-                        ((movie.voteAverage ?? 0) / 2).toStringAsFixed(1),
+                        ((movie?.voteAverage ?? 0) / 2).toStringAsFixed(1),
                       ),
                     ],
                   ),
                   const SizedBox(height: 16.0),
                   Text(
-                    movie.overview ?? '-',
+                    movie?.overview ?? '-',
                     overflow: TextOverflow.ellipsis,
                     maxLines: 2,
                   ),

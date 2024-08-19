@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:movie_provider/presentation/home_view.dart';
+import 'package:movie_provider/presentation/now_playing/now_playing_movies_state.dart';
+import 'package:movie_provider/presentation/now_playing/now_playing_movies_view.dart';
+import 'package:movie_provider/presentation/now_playing/now_playing_movies_viewmodel.dart';
 import 'package:movie_provider/presentation/popular/popular_movies_viewmodel.dart';
 import 'package:provider/provider.dart';
 
@@ -20,6 +23,10 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<PopularMoviesViewModel>(
           create: (context) =>
               PopularMoviesViewModel(di.locator())..getPopularMovies(),
+        ),
+        ChangeNotifierProvider<NowPlayingMoviesViewModel>(
+          create: (context) =>
+              NowPlayingMoviesViewModel(di.locator())..getNowPlayingMovies(),
         ),
       ],
       child: MaterialApp(

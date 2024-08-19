@@ -1,27 +1,30 @@
-import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:movie_provider/domain/entities/movie.dart';
 import 'package:movie_provider/presentation/common/grid_movie_card.dart';
 import 'package:movie_provider/presentation/common/movie_card.dart';
-import 'package:movie_provider/presentation/popular/popular_movies_viewmodel.dart';
-import 'package:movie_provider/presentation/popular/popular_state.dart';
-import 'package:provider/provider.dart';
 
 class MovieListView extends StatefulWidget {
-  static const routeName = '/popular-movies';
+  const MovieListView(
+      {super.key,
+      this.movies,
+      required this.whenScrollBottom,
+      required this.hasReachedMax,
+      required this.grid});
 
-  const MovieListView({super.key});
+  final List<Movie>? movies;
+  final void Function() whenScrollBottom;
+  final bool hasReachedMax;
+  final bool grid;
 
   @override
-  State<MovieListView> createState() => _MovieListViewState();
+  State<MovieListView> createState() => _MovieListState();
 }
 
-class _MovieListViewState extends State<MovieListView>
+class _MovieListState extends State<MovieListView>
     with AutomaticKeepAliveClientMixin<MovieListView> {
   @override
   void initState() {
     super.initState();
-
-    viewModel = context.read();
     _scrollController.addListener(_onScroll);
   }
 
@@ -35,7 +38,7 @@ class _MovieListViewState extends State<MovieListView>
 
   void _onScroll() {
     if (_isBottom) {
-      context.read<PopularMoviesViewModel>().getPopularMovies();
+      widget.whenScrollBottom.call();
     }
   }
 
@@ -46,92 +49,54 @@ class _MovieListViewState extends State<MovieListView>
     return currentScroll >= (maxScroll * 0.99);
   }
 
-  bool grid = false;
-
-  late final PopularMoviesViewModel viewModel;
-  late final bool hasReachedMax =
-      context.watch<PopularMoviesViewModel>().hasReachedMax;
   final _scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
 
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        title: const Text('Popular Movies'),
-        backgroundColor: Colors.black.withOpacity(0.6),
-        elevation: 0.0,
-        actions: [
-          IconButton(
-            onPressed: () {
-              setState(() {
-                grid = !grid;
-              });
-            },
-            icon: const Icon(Icons.grid_3x3),
+    return ListView(
+      shrinkWrap: true,
+      controller: _scrollController,
+      physics: const BouncingScrollPhysics(),
+      children: [
+        widget.grid
+            ? GridView.builder(
+                key: const Key('popularMoviesGridView'),
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                itemCount: widget.movies?.length ?? 0,
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: 0.7,
+                  crossAxisSpacing: 5,
+                  mainAxisSpacing: 10,
+                ),
+                itemBuilder: (_, index) {
+                  final tag = UniqueKey();
+                  return Hero(
+                      tag: tag,
+                      child: GridMovieCard(movie: widget.movies?[index]));
+                },
+              )
+            : ListView.builder(
+                key: const Key('popularMoviesListView'),
+                itemBuilder: (context, index) {
+                  final movie = widget.movies?[index];
+                  return MovieCard(
+                    movie: movie,
+                  );
+                },
+                itemCount: widget.movies?.length,
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+              ),
+        if (!widget.hasReachedMax)
+          const Center(
+            child: CircularProgressIndicator(),
           ),
-        ],
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Selector<PopularMoviesViewModel, PopularMoviesState>(
-          builder: (context, value, child) {
-            switch (value) {
-              case InitialPopularMoviesState():
-              case LoadingPopularMoviesState():
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              case SuccessPopularMoviesState():
-                return FadeInUp(
-                    from: 20,
-                    duration: const Duration(milliseconds: 500),
-                    child: () {
-                      if (grid) {
-                        return GridView.builder(
-                          key: const Key('popularMoviesGridView'),
-                          controller: _scrollController,
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 3,
-                            crossAxisSpacing: 15.0,
-                            mainAxisSpacing: 15.0,
-                            childAspectRatio: 0.6,
-                          ),
-                          itemBuilder: (context, index) {
-                            final movie = value.movies[index];
-                            return GridMovieCard(
-                              movie: movie,
-                            );
-                          },
-                          itemCount: value.movies.length,
-                        );
-                      } else {
-                        return ListView.builder(
-                          key: const Key('popularMoviesListView'),
-                          controller: _scrollController,
-                          itemBuilder: (context, index) {
-                            final movie = value.movies[index];
-                            return MovieCard(
-                              movie: movie,
-                            );
-                          },
-                          itemCount: value.movies.length,
-                        );
-                      }
-                    }());
-              case NoResultsPopularMoviesState():
-                return Center(
-                  key: const Key('error_message'),
-                  child: Text(value.message),
-                );
-            }
-          },
-          selector: (context, value) => value.state,
-        ),
-      ),
+      ],
     );
   }
 

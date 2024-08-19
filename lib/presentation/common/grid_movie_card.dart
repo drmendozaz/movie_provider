@@ -7,7 +7,7 @@ import 'package:movie_provider/domain/entities/movie.dart';
 
 class GridMovieCard extends StatelessWidget {
   const GridMovieCard({super.key, required this.movie});
-  final Movie movie;
+  final Movie? movie;
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ class GridMovieCard extends StatelessWidget {
         children: [
           CachedNetworkImage(
               imageUrl: ApiConfig.imageUrl(
-                movie.posterPath ?? '',
+                movie?.posterPath ?? '',
               ),
               placeholder: (context, url) => const Center(
                     child: CircularProgressIndicator(),
@@ -64,7 +64,7 @@ class GridMovieCard extends StatelessWidget {
                       ),
                     ),
                     child: Text(
-                      movie.title ?? '',
+                      movie?.title ?? '',
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.titleMedium?.copyWith(

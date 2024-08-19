@@ -6,7 +6,7 @@ import 'package:movie_provider/domain/entities/movie.dart';
 import 'package:movie_provider/domain/entities/movie_list.dart';
 import 'package:movie_provider/domain/usecases/movie_usecases.dart';
 import 'package:movie_provider/presentation/popular/popular_movies_viewmodel.dart';
-import 'package:movie_provider/presentation/popular/popular_state.dart';
+import 'package:movie_provider/presentation/popular/popular_movies_state.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:mocktail/mocktail.dart';
