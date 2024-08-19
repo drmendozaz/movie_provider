@@ -1,4 +1,6 @@
+import 'package:http/http.dart';
 import 'package:movie_provider/core/failure.dart';
+import 'package:movie_provider/data/datasources/movie_local_data_source.dart';
 import 'package:movie_provider/data/datasources/movie_remote_data_source.dart';
 import 'package:movie_provider/data/models/movie_list_response.dart';
 import 'package:movie_provider/data/repositories/movie_repository_impl.dart';
@@ -9,8 +11,11 @@ import 'package:mocktail/mocktail.dart';
 
 class MockMovieRemoteDataSource extends Mock implements MovieRemoteDataSource {}
 
+class MockMovieLocalDataSource extends Mock implements MovieLocalDataSource {}
+
 void main() {
   late MockMovieRemoteDataSource mockRemoteDataSource;
+  late MockMovieLocalDataSource mockLocalDataSource;
   late MovieRepositoryImpl repository;
 
   final movieListResponse =
@@ -18,7 +23,8 @@ void main() {
 
   setUp(() {
     mockRemoteDataSource = MockMovieRemoteDataSource();
-    repository = MovieRepositoryImpl(mockRemoteDataSource);
+    mockLocalDataSource = MockMovieLocalDataSource();
+    repository = MovieRepositoryImpl(mockRemoteDataSource, mockLocalDataSource);
 
     when(() => mockRemoteDataSource.getPopularMovies(page: 1))
         .thenAnswer((_) async => movieListResponse);
@@ -59,7 +65,7 @@ void main() {
       'should return server failure when a call to data source is unsuccessful',
       () async {
         when(() => mockRemoteDataSource.getNowPlayingMovies(page: 1))
-            .thenThrow(Exception(''));
+            .thenThrow(ClientException('Server error'));
 
         final result = await repository.getNowPlayingMovies(page: 1);
 

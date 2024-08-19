@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_provider/presentation/now_playing/now_playing_movies_view.dart';
 import 'package:movie_provider/presentation/popular/popular_movies_view.dart';
+import 'package:movie_provider/presentation/saved/saved_movies_view.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
 class HomeView extends StatelessWidget {
@@ -13,6 +14,7 @@ class HomeView extends StatelessWidget {
   final List<Widget> _buildScreens = [
     const NowPlayingMoviesView(),
     const PopularMoviesView(),
+    const SavedMoviesView(),
   ];
   final List<PersistentBottomNavBarItem> _navBarsItems = [
     PersistentBottomNavBarItem(
@@ -25,6 +27,12 @@ class HomeView extends StatelessWidget {
       icon: const Icon(CupertinoIcons.flame),
       title: ('Popular'),
       activeColorPrimary: CupertinoColors.activeGreen,
+      inactiveColorPrimary: CupertinoColors.systemGrey,
+    ),
+    PersistentBottomNavBarItem(
+      icon: const Icon(CupertinoIcons.square_favorites),
+      title: ('Saved'),
+      activeColorPrimary: CupertinoColors.activeOrange,
       inactiveColorPrimary: CupertinoColors.systemGrey,
     ),
   ];

@@ -42,4 +42,20 @@ class PopularMoviesViewModel extends ViewModel<PopularMoviesState> {
       rethrow;
     }
   }
+
+  Future<void> toggleBookmark({required Movie movieEntity}) async {
+    try {
+      final result =
+          await _movieUsecases.toggleBookmark(movieEntity: movieEntity);
+
+      result.fold(
+        (error) {},
+        (success) {
+          _movieList.firstWhere((e) => e.id == movieEntity.id).saved = true;
+        },
+      );
+    } catch (_) {
+      rethrow;
+    }
+  }
 }

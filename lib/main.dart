@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:movie_provider/core/database.dart';
 import 'package:movie_provider/presentation/home_view.dart';
-import 'package:movie_provider/presentation/now_playing/now_playing_movies_state.dart';
-import 'package:movie_provider/presentation/now_playing/now_playing_movies_view.dart';
 import 'package:movie_provider/presentation/now_playing/now_playing_movies_viewmodel.dart';
 import 'package:movie_provider/presentation/popular/popular_movies_viewmodel.dart';
+import 'package:movie_provider/presentation/saved/saved_movies_viewmodel.dart';
 import 'package:provider/provider.dart';
 
 import 'injector.dart' as di;
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   di.init();
+  await di.locator<LocalDatabase>().initialize();
   runApp(const MyApp());
 }
 
@@ -27,6 +29,10 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<NowPlayingMoviesViewModel>(
           create: (context) =>
               NowPlayingMoviesViewModel(di.locator())..getNowPlayingMovies(),
+        ),
+        ChangeNotifierProvider<SavedMoviesViewModel>(
+          create: (context) =>
+              SavedMoviesViewModel(di.locator())..getSavedMovies(),
         ),
       ],
       child: MaterialApp(

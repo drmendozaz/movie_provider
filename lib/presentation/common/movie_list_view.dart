@@ -9,10 +9,12 @@ class MovieListView extends StatefulWidget {
       this.movies,
       required this.whenScrollBottom,
       required this.hasReachedMax,
-      required this.grid});
+      required this.grid,
+      this.bookmark});
 
   final List<Movie>? movies;
   final void Function() whenScrollBottom;
+  final void Function(Movie)? bookmark;
   final bool hasReachedMax;
   final bool grid;
 
@@ -84,8 +86,11 @@ class _MovieListState extends State<MovieListView>
                 key: const Key('popularMoviesListView'),
                 itemBuilder: (context, index) {
                   final movie = widget.movies?[index];
-                  return MovieCard(
-                    movie: movie,
+                  return GestureDetector(
+                    onTap: () => widget.bookmark?.call(movie!),
+                    child: MovieCard(
+                      movie: movie,
+                    ),
                   );
                 },
                 itemCount: widget.movies?.length,
