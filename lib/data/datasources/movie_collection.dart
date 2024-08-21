@@ -1,10 +1,11 @@
+import 'package:equatable/equatable.dart';
 import 'package:isar/isar.dart';
 import 'package:movie_provider/domain/entities/movie.dart';
 
 part 'movie_collection.g.dart';
 
 @collection
-class MovieCollection {
+class MovieCollection extends Equatable {
   final Id id;
   final bool? adult;
   final String? backdropPath;
@@ -20,7 +21,7 @@ class MovieCollection {
   final double? voteAverage;
   final int? voteCount;
 
-  MovieCollection({
+  const MovieCollection({
     required this.id,
     this.adult,
     this.backdropPath,
@@ -64,4 +65,7 @@ class MovieCollection {
       voteCount: model.voteCount,
     );
   }
+
+  @override
+  List<Object?> get props => [id, title];
 }

@@ -15,7 +15,7 @@ class MockPopularMoviesViewModel extends Mock
     implements PopularMoviesViewModel {}
 
 void main() {
-  late MockPopularMoviesViewModel mockViewModel;
+  late PopularMoviesViewModel mockViewModel;
 
   final movieEntity = MovieListResponse.fromJsonMap(
           json.decode(readJson('helpers/movies_response.json')))

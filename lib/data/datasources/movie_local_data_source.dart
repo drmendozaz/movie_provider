@@ -13,7 +13,7 @@ abstract class MovieLocalDataSource {
   Future<bool> isSavedMovie({required int movieId});
 
   /// Returns a list of all saved movie from the local data source.
-  Future<List<MovieCollection>> getSavedMovie();
+  Future<List<MovieCollection>> getSavedMovies();
 }
 
 class MovieLocalDataSourceImpl implements MovieLocalDataSource {
@@ -35,10 +35,9 @@ class MovieLocalDataSourceImpl implements MovieLocalDataSource {
 
   /// Retrieves all saved movie from the local database.
   @override
-  Future<List<MovieCollection>> getSavedMovie() async {
+  Future<List<MovieCollection>> getSavedMovies() async {
     try {
       final list = await localDatabase.db.movieCollections.where().findAll();
-
       return list;
     } catch (_) {
       rethrow;
@@ -50,7 +49,6 @@ class MovieLocalDataSourceImpl implements MovieLocalDataSource {
   Future<void> saveMovie({required MovieCollection movieCollection}) async {
     try {
       final db = localDatabase.db;
-
       await db.writeTxn(() async => db.movieCollections.put(movieCollection));
     } catch (_) {
       rethrow;
@@ -64,7 +62,6 @@ class MovieLocalDataSourceImpl implements MovieLocalDataSource {
       final db = localDatabase.db;
       final isSaved =
           await db.movieCollections.filter().idEqualTo(movieId).isNotEmpty();
-
       return isSaved;
     } catch (_) {
       rethrow;

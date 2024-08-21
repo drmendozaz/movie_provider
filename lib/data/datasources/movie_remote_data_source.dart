@@ -16,24 +16,31 @@ class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
 
   @override
   Future<MovieListResponse> getPopularMovies({required int page}) async {
-    final response = await client.get(Uri.parse(ApiConfig.popularMovies(page)));
-
-    if (response.statusCode == 200) {
-      return MovieListResponse.fromJsonMap(json.decode(response.body));
-    } else {
-      throw Exception('Failed to fetch movies');
+    try {
+      final uri = Uri.parse(ApiConfig.popularMovies(page));
+      final response = await client.get(uri);
+      if (response.statusCode == 200) {
+        return MovieListResponse.fromJsonMap(json.decode(response.body));
+      } else {
+        throw ClientException('Failed to fetch movies', uri);
+      }
+    } catch (_) {
+      rethrow;
     }
   }
 
   @override
   Future<MovieListResponse> getNowPlayingMovies({required int page}) async {
-    final response =
-        await client.get(Uri.parse(ApiConfig.nowPlayingMovies(page)));
-
-    if (response.statusCode == 200) {
-      return MovieListResponse.fromJsonMap(json.decode(response.body));
-    } else {
-      throw Exception('Failed to fetch movies');
+    try {
+      final uri = Uri.parse(ApiConfig.nowPlayingMovies(page));
+      final response = await client.get(uri);
+      if (response.statusCode == 200) {
+        return MovieListResponse.fromJsonMap(json.decode(response.body));
+      } else {
+        throw ClientException('Failed to fetch movies', uri);
+      }
+    } catch (_) {
+      rethrow;
     }
   }
 }

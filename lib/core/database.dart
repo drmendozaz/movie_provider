@@ -1,6 +1,5 @@
 import 'package:isar/isar.dart';
 import 'package:movie_provider/data/datasources/movie_collection.dart';
-import 'package:path_provider/path_provider.dart';
 
 /// A class representing a local database.
 ///
@@ -19,11 +18,10 @@ class LocalDatabase {
   /// Initializes the Isar database.
   ///
   /// Throws an [IsarError] if the database has already been initialized.
-  Future<void> initialize() async {
+  Future<void> initialize({required String directory}) async {
     if (_isInitialized) throw IsarError('Isar has already been initialized.');
 
-    final directory = await getApplicationDocumentsDirectory();
-    _isar = await Isar.open([MovieCollectionSchema], directory: directory.path);
+    _isar = await Isar.open([MovieCollectionSchema], directory: directory);
 
     _isInitialized = true;
   }

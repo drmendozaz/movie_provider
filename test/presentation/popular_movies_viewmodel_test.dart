@@ -17,7 +17,7 @@ class MockMovieUsecases extends Mock implements MovieUsecases {}
 
 void main() {
   late int listenerCallCount;
-  late MockMovieUsecases mockMovieUsecases;
+  late MovieUsecases mockMovieUsecases;
   late PopularMoviesViewModel viewModel;
 
   var tMovies = MovieListResponse.fromJsonMap(

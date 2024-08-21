@@ -53,7 +53,7 @@ class MovieRepositoryImpl implements MovieRepository {
   @override
   Future<Either<Failure, List<Movie>>> getSavedMovies() async {
     try {
-      final result = await _movieLocalDataSource.getSavedMovie();
+      final result = await _movieLocalDataSource.getSavedMovies();
 
       return Right(result.map((e) => e.toEntity()).toList());
     } on IsarError catch (e) {
@@ -73,11 +73,10 @@ class MovieRepositoryImpl implements MovieRepository {
   }
 
   @override
-  Future<Either<Failure, void>> saveMovie(
-      {required Movie movieDetailEntity}) async {
+  Future<Either<Failure, void>> saveMovie({required Movie movieEntity}) async {
     try {
       final result = await _movieLocalDataSource.saveMovie(
-        movieCollection: MovieCollection(id: 1).fromEntity(movieDetailEntity),
+        movieCollection: const MovieCollection(id: 1).fromEntity(movieEntity),
       );
 
       return Right(result);

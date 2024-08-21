@@ -36,7 +36,7 @@ class MovieUsecases {
         if (isSaved) {
           return _movieRepository.deleteMovie(movieId: movieEntity.id);
         } else {
-          return _movieRepository.saveMovie(movieDetailEntity: movieEntity);
+          return _movieRepository.saveMovie(movieEntity: movieEntity);
         }
       },
     );

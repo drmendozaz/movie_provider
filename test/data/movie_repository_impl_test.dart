@@ -5,6 +5,7 @@ import 'package:movie_provider/data/datasources/movie_remote_data_source.dart';
 import 'package:movie_provider/data/models/movie_list_response.dart';
 import 'package:movie_provider/data/repositories/movie_repository_impl.dart';
 import 'package:movie_provider/domain/entities/movie_list.dart';
+import 'package:movie_provider/domain/repositories/movie_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:mocktail/mocktail.dart';
@@ -16,7 +17,7 @@ class MockMovieLocalDataSource extends Mock implements MovieLocalDataSource {}
 void main() {
   late MockMovieRemoteDataSource mockRemoteDataSource;
   late MockMovieLocalDataSource mockLocalDataSource;
-  late MovieRepositoryImpl repository;
+  late MovieRepository repository;
 
   final movieListResponse =
       MovieListResponse(page: 1, movies: [], totalPages: 1, totalResults: 1);

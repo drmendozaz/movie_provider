@@ -4,6 +4,7 @@ import 'package:movie_provider/presentation/home_view.dart';
 import 'package:movie_provider/presentation/now_playing/now_playing_movies_viewmodel.dart';
 import 'package:movie_provider/presentation/popular/popular_movies_viewmodel.dart';
 import 'package:movie_provider/presentation/saved/saved_movies_viewmodel.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 
 import 'injector.dart' as di;
@@ -11,7 +12,8 @@ import 'injector.dart' as di;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   di.init();
-  await di.locator<LocalDatabase>().initialize();
+  var directory = await getApplicationDocumentsDirectory();
+  await di.locator<LocalDatabase>().initialize(directory: directory.path);
   runApp(const MyApp());
 }
 
