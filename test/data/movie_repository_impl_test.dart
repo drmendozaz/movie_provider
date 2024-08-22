@@ -1,5 +1,6 @@
 import 'package:http/http.dart';
 import 'package:movie_provider/core/failure.dart';
+import 'package:movie_provider/data/datasources/movie_collection.dart';
 import 'package:movie_provider/data/datasources/movie_local_data_source.dart';
 import 'package:movie_provider/data/datasources/movie_remote_data_source.dart';
 import 'package:movie_provider/data/models/movie_list_response.dart';
@@ -18,28 +19,27 @@ void main() {
   late MockMovieRemoteDataSource mockRemoteDataSource;
   late MockMovieLocalDataSource mockLocalDataSource;
   late MovieRepository repository;
-
+  const tId = 1;
+  const tMovie = MovieCollection(id: tId);
   final movieListResponse =
       MovieListResponse(page: 1, movies: [], totalPages: 1, totalResults: 1);
 
-  setUp(() {
+  setUpAll(() {
     mockRemoteDataSource = MockMovieRemoteDataSource();
     mockLocalDataSource = MockMovieLocalDataSource();
     repository = MovieRepositoryImpl(mockRemoteDataSource, mockLocalDataSource);
-
-    when(() => mockRemoteDataSource.getPopularMovies(page: 1))
-        .thenAnswer((_) async => movieListResponse);
-
-    when(() => mockRemoteDataSource.getNowPlayingMovies(page: 1))
-        .thenAnswer((_) async => movieListResponse);
   });
+
+  setUp(() {});
 
   group('Get popular movies', () {
     test(
       'should return movie list when a call to data source is successful',
       () async {
-        final result = await repository.getPopularMovies(page: 1);
+        when(() => mockRemoteDataSource.getPopularMovies(page: 1))
+            .thenAnswer((_) async => movieListResponse);
 
+        final result = await repository.getPopularMovies(page: 1);
         verify(() => mockRemoteDataSource.getPopularMovies(page: 1));
 
         final resultList = result.getOrElse((_) => const MovieListEntity());
@@ -52,8 +52,10 @@ void main() {
     test(
       'should return movie list when a call to data source is successful',
       () async {
-        final result = await repository.getNowPlayingMovies(page: 1);
+        when(() => mockRemoteDataSource.getNowPlayingMovies(page: 1))
+            .thenAnswer((_) async => movieListResponse);
 
+        final result = await repository.getNowPlayingMovies(page: 1);
         verify(() => mockRemoteDataSource.getNowPlayingMovies(page: 1));
 
         final resultList =
@@ -78,4 +80,52 @@ void main() {
       },
     );
   });
+
+  test(
+    'save movie should succeed',
+    () async {
+      when(() => mockLocalDataSource.saveMovie(movieCollection: tMovie))
+          .thenAnswer((_) async {});
+
+      await repository.saveMovie(movieEntity: tMovie.toEntity());
+      verify(() => mockLocalDataSource.saveMovie(movieCollection: tMovie));
+    },
+  );
+
+  test(
+    'is saved movie should return true',
+    () async {
+      when(() => mockLocalDataSource.isSavedMovie(movieId: tId))
+          .thenAnswer((_) async => true);
+
+      final result = await repository.isSavedMovie(movieId: tId);
+      verify(() => mockLocalDataSource.isSavedMovie(movieId: tId));
+      expect(result, const Right(true));
+    },
+  );
+
+  test(
+    'delete movie should succeed',
+    () async {
+      when(() => mockLocalDataSource.deleteMovie(movieId: tId))
+          .thenAnswer((_) async {});
+
+      final result = await repository.deleteMovie(movieId: tId);
+      verify(() => mockLocalDataSource.deleteMovie(movieId: tId));
+      expect(result, const Right(null));
+    },
+  );
+
+  test(
+    'get saved movies should return a list of movies',
+    () async {
+      when(() => mockLocalDataSource.getSavedMovies())
+          .thenAnswer((_) async => [tMovie]);
+
+      final result = await repository.getSavedMovies();
+      verify(() => mockLocalDataSource.getSavedMovies());
+      final resultList = result.getOrElse((_) => []);
+      expect(resultList, [tMovie.toEntity()]);
+    },
+  );
 }
