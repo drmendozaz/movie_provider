@@ -4,10 +4,10 @@ import 'package:movie_provider/domain/usecases/movie_usecases.dart';
 import 'package:movie_provider/presentation/popular/popular_movies_state.dart';
 
 class PopularMoviesViewModel extends ViewModel<PopularMoviesState> {
-  PopularMoviesViewModel(this._movieUsecases)
+  PopularMoviesViewModel(this._movieUseCases)
       : super(const PopularMoviesState.initial());
 
-  final MovieUsecases _movieUsecases;
+  final MovieUseCases _movieUseCases;
   final List<Movie> _movieList = [];
   int _page = 1;
   bool hasReachedMax = false;
@@ -20,7 +20,7 @@ class PopularMoviesViewModel extends ViewModel<PopularMoviesState> {
         setState(const PopularMoviesState.loading());
       }
 
-      final result = await _movieUsecases.getPopularMovies(page: _page);
+      final result = await _movieUseCases.getPopularMovies(page: _page);
 
       result.fold(
         (error) =>
@@ -44,14 +44,14 @@ class PopularMoviesViewModel extends ViewModel<PopularMoviesState> {
   }
 
   Future<bool> isSavedMovie(int id) async {
-    var saved = await _movieUsecases.isSavedMovie(id);
+    var saved = await _movieUseCases.isSavedMovie(id);
     return saved;
   }
 
   Future<void> toggleBookmark({required Movie movieEntity}) async {
     try {
       final result =
-          await _movieUsecases.toggleBookmark(movieEntity: movieEntity);
+          await _movieUseCases.toggleBookmark(movieEntity: movieEntity);
 
       result.fold(
         (error) {},

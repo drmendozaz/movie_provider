@@ -11,7 +11,7 @@ final locator = GetIt.instance;
 
 void init() {
   // use case
-  locator.registerLazySingleton(() => MovieUsecases(locator()));
+  locator.registerLazySingleton(() => MovieUseCases(locator()));
 
   // repository
   locator.registerLazySingleton<MovieRepository>(

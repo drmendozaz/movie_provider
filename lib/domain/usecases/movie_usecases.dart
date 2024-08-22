@@ -4,10 +4,10 @@ import 'package:movie_provider/domain/entities/movie_list.dart';
 import 'package:movie_provider/domain/repositories/movie_repository.dart';
 import 'package:fpdart/fpdart.dart';
 
-class MovieUsecases {
+class MovieUseCases {
   final MovieRepository _movieRepository;
 
-  const MovieUsecases(this._movieRepository);
+  const MovieUseCases(this._movieRepository);
 
   Future<Either<Failure, MovieListEntity>> getPopularMovies(
       {required int page}) async {

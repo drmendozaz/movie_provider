@@ -15,25 +15,27 @@ class GridMovieCard extends StatelessWidget {
       margin: const EdgeInsets.all(8),
       child: Stack(
         children: [
-          CachedNetworkImage(
-              imageUrl: ApiConfig.imageUrl(
-                movie?.posterPath ?? '',
-              ),
-              placeholder: (context, url) => const Center(
-                    child: CircularProgressIndicator(),
+          movie?.posterPath?.isNotEmpty ?? false
+              ? CachedNetworkImage(
+                  imageUrl: ApiConfig.imageUrl(
+                    movie?.posterPath ?? '',
                   ),
-              errorWidget: (context, url, error) => const Icon(Icons.error),
-              imageBuilder: (context, imageProvider) {
-                return Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    image: DecorationImage(
-                      image: imageProvider,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                );
-              }),
+                  placeholder: (context, url) => const Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                  imageBuilder: (context, imageProvider) {
+                    return Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        image: DecorationImage(
+                          image: imageProvider,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    );
+                  })
+              : const SizedBox(),
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

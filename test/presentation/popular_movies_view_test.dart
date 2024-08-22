@@ -67,6 +67,28 @@ void main() {
   );
 
   testWidgets(
+    'View should display grid view when grid button is tapped',
+    (WidgetTester tester) async {
+      when(() => mockViewModel.state).thenReturn(
+          PopularMoviesState.success(movies: movieEntity.movies ?? <Movie>[]));
+      when(() => mockViewModel.hasReachedMax).thenReturn(true);
+      when(() => mockViewModel.isSavedMovie(any()))
+          .thenAnswer((_) async => false);
+
+      final gridViewFinder = find.byKey(const Key('popularMoviesGridView'));
+      final gridButton = find.byType(IconButton);
+      await tester.pumpWidget(
+        makeTestableWidget(const PopularMoviesView()),
+        duration: const Duration(milliseconds: 500),
+      );
+      await tester.tap(gridButton);
+      await tester.pump();
+      expect(gridViewFinder, equals(findsOneWidget));
+      await tester.pumpAndSettle(const Duration(milliseconds: 500));
+    },
+  );
+
+  testWidgets(
     'View should display text with message when error',
     (WidgetTester tester) async {
       when(() => mockViewModel.state).thenReturn(

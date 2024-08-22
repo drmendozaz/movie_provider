@@ -13,11 +13,11 @@ import 'package:mocktail/mocktail.dart';
 
 import '../helpers/json_reader.dart';
 
-class MockMovieUsecases extends Mock implements MovieUsecases {}
+class MockMovieUsecases extends Mock implements MovieUseCases {}
 
 void main() {
   late int listenerCallCount;
-  late MovieUsecases mockMovieUsecases;
+  late MovieUseCases mockMovieUsecases;
   late PopularMoviesViewModel viewModel;
 
   var tMovies = MovieListResponse.fromJsonMap(

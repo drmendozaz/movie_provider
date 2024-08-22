@@ -3,10 +3,10 @@ import 'package:movie_provider/domain/usecases/movie_usecases.dart';
 import 'package:movie_provider/presentation/saved/saved_movies_state.dart';
 
 class SavedMoviesViewModel extends ViewModel<SavedMoviesState> {
-  SavedMoviesViewModel(this._movieUsecases)
+  SavedMoviesViewModel(this._movieUseCases)
       : super(const SavedMoviesState.initial());
 
-  final MovieUsecases _movieUsecases;
+  final MovieUseCases _movieUseCases;
 
   Future<void> getSavedMovies() async {
     try {
@@ -14,7 +14,7 @@ class SavedMoviesViewModel extends ViewModel<SavedMoviesState> {
         setState(const SavedMoviesState.loading());
       }
 
-      final result = await _movieUsecases.streamSavedMovies();
+      final result = await _movieUseCases.streamSavedMovies();
 
       result.fold(
         (error) => setState(SavedMoviesState.noResults(message: error.message)),

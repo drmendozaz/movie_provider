@@ -7,7 +7,7 @@ class NowPlayingMoviesViewModel extends ViewModel<NowPlayingMoviesState> {
   NowPlayingMoviesViewModel(this._movieUsecases)
       : super(const NowPlayingMoviesState.initial());
 
-  final MovieUsecases _movieUsecases;
+  final MovieUseCases _movieUsecases;
   final List<Movie> _movieList = [];
   int _page = 1;
   bool hasReachedMax = false;
