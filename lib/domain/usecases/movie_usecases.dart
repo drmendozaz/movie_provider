@@ -23,6 +23,15 @@ class MovieUsecases {
     return _movieRepository.getSavedMovies();
   }
 
+  Future<Either<Failure, Stream<List<Movie>>>> streamSavedMovies() async {
+    return _movieRepository.streamSavedMovies();
+  }
+
+  Future<bool> isSavedMovie(int id) async {
+    var saved = await _movieRepository.isSavedMovie(movieId: id);
+    return saved.getOrElse((_) => false);
+  }
+
   Future<Either<Failure, void>> toggleBookmark(
       {required Movie movieEntity}) async {
     final isSaved =

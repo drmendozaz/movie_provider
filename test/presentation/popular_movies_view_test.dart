@@ -52,6 +52,8 @@ void main() {
       when(() => mockViewModel.state).thenReturn(
           PopularMoviesState.success(movies: movieEntity.movies ?? <Movie>[]));
       when(() => mockViewModel.hasReachedMax).thenReturn(true);
+      when(() => mockViewModel.isSavedMovie(any()))
+          .thenAnswer((_) async => false);
 
       final listViewFinder = find.byKey(const Key('popularMoviesListView'));
       await tester.pumpWidget(

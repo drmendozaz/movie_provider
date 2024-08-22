@@ -62,6 +62,19 @@ class MovieRepositoryImpl implements MovieRepository {
   }
 
   @override
+  Future<Either<Failure, Stream<List<Movie>>>> streamSavedMovies() async {
+    try {
+      final result = _movieLocalDataSource
+          .streamSavedMovies()
+          .map((list) => list.map((e) => e.toEntity()).toList());
+
+      return Right(result);
+    } on IsarError catch (e) {
+      return Left(DatabaseFailure(e.message));
+    }
+  }
+
+  @override
   Future<Either<Failure, bool>> isSavedMovie({required int movieId}) async {
     try {
       final result = await _movieLocalDataSource.isSavedMovie(movieId: movieId);

@@ -6,15 +6,17 @@ import 'package:movie_provider/presentation/common/movie_card.dart';
 class MovieListView extends StatefulWidget {
   const MovieListView(
       {super.key,
-      this.movies,
+      required this.movies,
       required this.whenScrollBottom,
       required this.hasReachedMax,
       required this.grid,
-      this.bookmark});
+      this.bookmark,
+      this.isSaved});
 
-  final List<Movie>? movies;
+  final List<Movie> movies;
   final void Function() whenScrollBottom;
   final void Function(Movie)? bookmark;
+  final Future<bool> Function(int)? isSaved;
   final bool hasReachedMax;
   final bool grid;
 
@@ -66,7 +68,7 @@ class _MovieListState extends State<MovieListView>
             ? GridView.builder(
                 key: const Key('popularMoviesGridView'),
                 padding: const EdgeInsets.symmetric(vertical: 10),
-                itemCount: widget.movies?.length ?? 0,
+                itemCount: widget.movies.length,
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -79,21 +81,30 @@ class _MovieListState extends State<MovieListView>
                   final tag = UniqueKey();
                   return Hero(
                       tag: tag,
-                      child: GridMovieCard(movie: widget.movies?[index]));
+                      child: GridMovieCard(movie: widget.movies[index]));
                 },
               )
             : ListView.builder(
                 key: const Key('popularMoviesListView'),
                 itemBuilder: (context, index) {
-                  final movie = widget.movies?[index];
+                  final movie = widget.movies[index];
                   return GestureDetector(
-                    onTap: () => widget.bookmark?.call(movie!),
-                    child: MovieCard(
-                      movie: movie,
-                    ),
-                  );
+                      onTap: () {
+                        widget.bookmark?.call(movie);
+                        movie.saved = !movie.saved;
+                      },
+                      child: FutureBuilder<bool>(
+                        future: widget.isSaved?.call(movie.id),
+                        initialData: false,
+                        builder: (ctx, snp) {
+                          movie.saved = snp.data ?? false;
+                          return MovieCard(
+                            movie: movie,
+                          );
+                        },
+                      ));
                 },
-                itemCount: widget.movies?.length,
+                itemCount: widget.movies.length,
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
               ),

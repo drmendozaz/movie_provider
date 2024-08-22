@@ -12,6 +12,7 @@ abstract class MovieRepository {
 
   //* Local Data Source
   Future<Either<Failure, List<Movie>>> getSavedMovies();
+  Future<Either<Failure, Stream<List<Movie>>>> streamSavedMovies();
   Future<Either<Failure, void>> saveMovie({required Movie movieEntity});
   Future<Either<Failure, void>> deleteMovie({required int movieId});
   Future<Either<Failure, bool>> isSavedMovie({required int movieId});

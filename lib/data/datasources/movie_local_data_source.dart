@@ -14,6 +14,8 @@ abstract class MovieLocalDataSource {
 
   /// Returns a list of all saved movie from the local data source.
   Future<List<MovieCollection>> getSavedMovies();
+
+  Stream<List<MovieCollection>> streamSavedMovies();
 }
 
 class MovieLocalDataSourceImpl implements MovieLocalDataSource {
@@ -39,6 +41,19 @@ class MovieLocalDataSourceImpl implements MovieLocalDataSource {
     try {
       final list = await localDatabase.db.movieCollections.where().findAll();
       return list;
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  @override
+  Stream<List<MovieCollection>> streamSavedMovies() {
+    try {
+      final movieStream = localDatabase.db.movieCollections
+          .where()
+          .build()
+          .watch(fireImmediately: true);
+      return movieStream;
     } catch (_) {
       rethrow;
     }

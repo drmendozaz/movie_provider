@@ -14,7 +14,7 @@ class SavedMoviesViewModel extends ViewModel<SavedMoviesState> {
         setState(const SavedMoviesState.loading());
       }
 
-      final result = await _movieUsecases.getSavedMovies();
+      final result = await _movieUsecases.streamSavedMovies();
 
       result.fold(
         (error) => setState(SavedMoviesState.noResults(message: error.message)),

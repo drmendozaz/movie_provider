@@ -43,6 +43,11 @@ class PopularMoviesViewModel extends ViewModel<PopularMoviesState> {
     }
   }
 
+  Future<bool> isSavedMovie(int id) async {
+    var saved = await _movieUsecases.isSavedMovie(id);
+    return saved;
+  }
+
   Future<void> toggleBookmark({required Movie movieEntity}) async {
     try {
       final result =
@@ -51,7 +56,7 @@ class PopularMoviesViewModel extends ViewModel<PopularMoviesState> {
       result.fold(
         (error) {},
         (success) {
-          _movieList.firstWhere((e) => e.id == movieEntity.id).saved = true;
+          notifyListeners();
         },
       );
     } catch (_) {

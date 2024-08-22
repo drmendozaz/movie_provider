@@ -5,8 +5,8 @@ sealed class SavedMoviesState extends Equatable {
   const SavedMoviesState();
   const factory SavedMoviesState.initial() = InitialSavedMoviesState;
   const factory SavedMoviesState.loading() = LoadingSavedMoviesState;
-  const factory SavedMoviesState.success({required List<Movie> movies}) =
-      SuccessSavedMoviesState;
+  const factory SavedMoviesState.success(
+      {required Stream<List<Movie>> movies}) = SuccessSavedMoviesState;
   const factory SavedMoviesState.noResults({required String message}) =
       NoResultsSavedMoviesState;
 
@@ -25,7 +25,7 @@ final class LoadingSavedMoviesState extends SavedMoviesState {
 final class SuccessSavedMoviesState extends SavedMoviesState {
   const SuccessSavedMoviesState({required this.movies});
 
-  final List<Movie> movies;
+  final Stream<List<Movie>> movies;
 
   @override
   List<Object> get props => [movies];

@@ -69,6 +69,7 @@ class _PopularMoviesViewState extends State<PopularMoviesView> {
                         grid: grid,
                         bookmark: (movie) async =>
                             viewModel.toggleBookmark(movieEntity: movie),
+                        isSaved: (id) => viewModel.isSavedMovie(id),
                       );
                     }());
               case NoResultsPopularMoviesState():
