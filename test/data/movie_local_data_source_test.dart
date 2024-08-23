@@ -44,6 +44,14 @@ void main() {
   );
 
   test(
+    'stream saved movies should return a stream of list of movies',
+    () async {
+      final result = dataSource.streamSavedMovies();
+      expect(result, isA<Stream<List<MovieCollection>>>());
+    },
+  );
+
+  test(
     'delete movie should erase movie from db',
     () async {
       await testDatabase.db

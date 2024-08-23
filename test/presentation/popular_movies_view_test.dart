@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:mocktail_image_network/mocktail_image_network.dart';
 import 'package:movie_provider/data/models/movie_list_response.dart';
 import 'package:movie_provider/domain/entities/movie.dart';
 import 'package:movie_provider/presentation/popular/popular_movies_view.dart';
@@ -55,12 +56,14 @@ void main() {
       when(() => mockViewModel.isSavedMovie(any()))
           .thenAnswer((_) async => false);
 
-      final listViewFinder = find.byKey(const Key('popularMoviesListView'));
-      await tester.pumpWidget(
-        makeTestableWidget(const PopularMoviesView()),
-        duration: const Duration(milliseconds: 500),
-      );
-      await tester.pumpAndSettle(const Duration(milliseconds: 500));
+      final listViewFinder = find.byKey(const Key('moviesListView'));
+      await mockNetworkImages(() async {
+        await tester.pumpWidget(
+          makeTestableWidget(const PopularMoviesView()),
+          duration: const Duration(milliseconds: 500),
+        );
+      });
+      await tester.pump(const Duration(milliseconds: 500));
 
       expect(listViewFinder, equals(findsOneWidget));
     },
@@ -75,16 +78,18 @@ void main() {
       when(() => mockViewModel.isSavedMovie(any()))
           .thenAnswer((_) async => false);
 
-      final gridViewFinder = find.byKey(const Key('popularMoviesGridView'));
+      final gridViewFinder = find.byKey(const Key('moviesGridView'));
       final gridButton = find.byType(IconButton);
-      await tester.pumpWidget(
-        makeTestableWidget(const PopularMoviesView()),
-        duration: const Duration(milliseconds: 500),
-      );
+      await mockNetworkImages(() async {
+        await tester.pumpWidget(
+          makeTestableWidget(const PopularMoviesView()),
+          duration: const Duration(milliseconds: 500),
+        );
+      });
       await tester.tap(gridButton);
       await tester.pump();
       expect(gridViewFinder, equals(findsOneWidget));
-      await tester.pumpAndSettle(const Duration(milliseconds: 500));
+      await tester.pump(const Duration(milliseconds: 500));
     },
   );
 

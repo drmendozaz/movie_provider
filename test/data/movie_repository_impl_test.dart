@@ -1,10 +1,12 @@
 import 'package:http/http.dart';
+import 'package:isar/isar.dart';
 import 'package:movie_provider/core/failure.dart';
 import 'package:movie_provider/data/datasources/movie_collection.dart';
 import 'package:movie_provider/data/datasources/movie_local_data_source.dart';
 import 'package:movie_provider/data/datasources/movie_remote_data_source.dart';
 import 'package:movie_provider/data/models/movie_list_response.dart';
 import 'package:movie_provider/data/repositories/movie_repository_impl.dart';
+import 'package:movie_provider/domain/entities/movie.dart';
 import 'package:movie_provider/domain/entities/movie_list.dart';
 import 'package:movie_provider/domain/repositories/movie_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -117,6 +119,19 @@ void main() {
   );
 
   test(
+    'delete movie should fail',
+    () async {
+      when(() => mockLocalDataSource.deleteMovie(movieId: tId))
+          .thenThrow(IsarError('DB error'));
+
+      final result = await repository.deleteMovie(movieId: tId);
+
+      expect(result,
+          const Left<Failure, MovieListEntity>(DatabaseFailure('DB error')));
+    },
+  );
+
+  test(
     'get saved movies should return a list of movies',
     () async {
       when(() => mockLocalDataSource.getSavedMovies())
@@ -126,6 +141,20 @@ void main() {
       verify(() => mockLocalDataSource.getSavedMovies());
       final resultList = result.getOrElse((_) => []);
       expect(resultList, [tMovie.toEntity()]);
+    },
+  );
+
+  test(
+    'get saved movies should return a stream of list of movies',
+    () async {
+      when(() => mockLocalDataSource.streamSavedMovies())
+          .thenAnswer((_) => Stream<List<MovieCollection>>.value([tMovie]));
+
+      final result = await repository.streamSavedMovies();
+      verify(() => mockLocalDataSource.streamSavedMovies());
+      final resultList =
+          result.getOrElse((_) => const Stream<List<Movie>>.empty());
+      expect(resultList, emits([tMovie.toEntity()]));
     },
   );
 }

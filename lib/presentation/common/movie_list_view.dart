@@ -66,7 +66,7 @@ class _MovieListState extends State<MovieListView>
       children: [
         widget.grid
             ? GridView.builder(
-                key: const Key('popularMoviesGridView'),
+                key: const Key('moviesGridView'),
                 padding: const EdgeInsets.symmetric(vertical: 10),
                 itemCount: widget.movies.length,
                 physics: const NeverScrollableScrollPhysics(),
@@ -85,7 +85,7 @@ class _MovieListState extends State<MovieListView>
                 },
               )
             : ListView.builder(
-                key: const Key('popularMoviesListView'),
+                key: const Key('moviesListView'),
                 itemBuilder: (context, index) {
                   final movie = widget.movies[index];
                   return GestureDetector(

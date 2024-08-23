@@ -77,4 +77,28 @@ void main() {
       expect(listenerCallCount, equals(2));
     },
   );
+
+  test(
+    'Should return true if a movie is saved',
+    () async {
+      when(() => mockMovieUsecases.isSavedMovie(1))
+          .thenAnswer((_) async => true);
+
+      final saved = await viewModel.isSavedMovie(1);
+
+      expect(saved, equals(true));
+    },
+  );
+
+  test(
+    'Should notify listeners when toggling a bookmark',
+    () async {
+      when(() => mockMovieUsecases.toggleBookmark(movieEntity: Movie(id: 1)))
+          .thenAnswer((_) async => const Right(null));
+
+      await viewModel.toggleBookmark(movieEntity: Movie(id: 1));
+
+      expect(listenerCallCount, equals(1));
+    },
+  );
 }
